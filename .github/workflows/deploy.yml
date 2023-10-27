@@ -17,3 +17,4 @@ jobs:
         port: ${{ secrets.DEPLOY_PORT }}
         source: "groupe2.war"
         target: "/opt/tomcat/webapps"
+        
