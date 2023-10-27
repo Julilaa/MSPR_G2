@@ -1,22 +1,45 @@
-<html>
-<head>
-<title>Application MSPR E6.1 Intégration Continue</title>
-</head>
-<body bgcolor=white>
+<!DOCTYPE html>
+<html lang="fr">
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json" />
+<script src="service-worker.js"></script>
 
-<table border="0">
-<tr>
-<td>
-<img src="images/tomcat.gif">
-</td>
-<td>
-<h1>Bienvenue sur notre projet MSPR E6.1 Integration Continue - Groupe 2</h1>
-    <p>Nous sommes le Groupe 2 - MSPR E6.1</p>
-</td>
-</tr>
-</table>
+<body>
+<button class="add-button">Add to home screen</button>
 
-<p>To prove that they work, you can execute either of the following links:
+</div>
+<section class="top-banner">
+    <div class="container">
+        <h3 class="heading">Météo </h3>
+        <form>
+            <input type="text" placeholder="Nom de la ville" autofocus>
+            <button type="submit">ENVOYER</button>
+            <span class="msg"></span>
+        </form>
+    </div>
+</section>
+<section class="ajax-section">
+    <div class="container">
+        <ul class="cities"></ul>
+    </div>
+</section>
+<footer class="page-footer">
+    <div class="container">
+    </div>
+</footer>
+<link rel="stylesheet" href="style.css">
+<script src="main.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/D4C/service-worker.js').then(function (registration) {
+            console.log('Service worker registration succeeded:', registration);
+        }, function (error) {
+            console.log('Service worker registration failed:', error);
+        });
+    } else {
+        console.log('Service workers are not supported.');
+    }
+</script>
 <ul>
 <li>To a <a href="hello.jsp">JSP page</a>.
 <li>To a <a href="hello">servlet</a>.
