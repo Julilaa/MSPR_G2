@@ -17,4 +17,3 @@ jobs:
         port: ${{ secrets.DEPLOY_PORT }}
         source: "MSPRJulie.war"
         target: "/opt/tomcat/webapps"
-        
