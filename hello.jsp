@@ -6,6 +6,7 @@
 <body bgcolor="white">
 
 <table border="1">
+    <caption>This table represents the output of a JSP page in the Hello, World application.</caption>
     <tr>
         <th align="center">
             <img src="images/tomcat.gif" alt="Tomcat Logo">
