@@ -1,6 +1,0 @@
-- name: Notification Discord
-  env:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-    run: |
-      ipfs_key=$(cat ipfs_key.txt)
-      curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"Le workflow IPFS est terminé. Clé IPFS : $ipfs_key\"}" $DISCORD_WEBHOOK
