@@ -1,0 +1,65 @@
+name: Continuous Deployment and Database Backup
+
+on: push
+
+jobs:
+  setup_and_backup:
+    name: Setup SSH and Backup Database
+    runs-on: ubuntu-latest
+    steps:
+      
+      - uses: actions/checkout@v2
+      
+      
+      - name: Setup SSH Keys
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan ${{ secrets.HOST_DNS }} >> ~/.ssh/known_hosts
+      
+      
+      - name: Create SSH Tunnel
+        run: |
+          ssh -i ~/.ssh/id_rsa -L 3307:127.0.0.1:3306 admin@${{ secrets.HOST_DNS }} -N &
+          SSH_TUNNEL_PID=$!
+          sleep 10
+          if ps -p $SSH_TUNNEL_PID > /dev/null; then
+            echo "SSH tunnel established, PID: $SSH_TUNNEL_PID"
+          else
+            echo "SSH tunnel failed"
+            exit 1    
+          fi
+      
+ 
+      - name: Dump MySQL Database
+        env:
+          MYSQL_PWD: ${{ secrets.MYSQLDUMP_PASSWORD }}
+        run: |
+          mysqldump -ucnam -h127.0.0.1 -P3307 --password="${MYSQL_PWD}" films > sauvegarde_films.sql
+          if [ $? -ne 0 ]; then
+            echo "Failed to dump MySQL"
+            exit 1
+          fi
+      
+
+      - name: Kill SSH Tunnel
+        if: always()
+        run: |
+          kill $SSH_TUNNEL_PID || echo "SSH tunnel fin."
+      
+
+      - name: Install IPFS
+        run: |
+          wget https://dist.ipfs.io/go-ipfs/v0.9.1/go-ipfs_v0.9.1_linux-amd64.tar.gz
+          tar xvfz go-ipfs_v0.9.1_linux-amd64.tar.gz
+          cd go-ipfs
+          sudo bash install.sh
+          ipfs init
+      
+      
+      - name: Add to IPFS
+        run: |
+          ipfs daemon --init &
+          sleep 10
+          ipfs add sauvegarde_films.sql
