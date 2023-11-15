@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="fr">
-<meta charset="UTF-8">
-<link rel="manifest" href="manifest.json" />
-<script src="service-worker.js"></script>
-
+<head>
+    <meta charset="UTF-8">
+    <link rel="manifest" href="manifest.json" />
+    <script src="service-worker.js"></script>
+    <title>Julie</title> <!-- Ajout de la balise <title> -->
+</head>
 <body>
-
-</div>
-<section class="top-banner">
-    <div class="container">
-        <h3 class="heading">Météo </h3>
-        <form>
-            <input type="text" placeholder="Nom de la ville" autofocus>
-            <button type="submit">ENVOYER</button>
-            <span class="msg"></span>
-        </form>
-    </div>
-</section>
-<section class="ajax-section">
-    <div class="container">
-        <ul class="cities"></ul>
-    </div>
-</section>
-<footer class="page-footer">
-    <div class="container">
-    </div>
-</footer>
-<link rel="stylesheet" href="style.css">
-<script src="main.js"></script>
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/D4C/service-worker.js').then(function (registration) {
-            console.log('Service worker registration succeeded:', registration);
-        }, function (error) {
-            console.log('Service worker registration failed:', error);
-        });
-    } else {
-        console.log('Service workers are not supported.');
-    }
-</script>
-<ul>
-<li>To a <a href="hello.jsp">JSP page</a>.
-<li>To a <a href="hello">servlet</a>.
-</ul>
+    <section class="top-banner">
+        <div class="container">
+            <h3 class="heading">Météo </h3>
+            <form>
+                <input type="text" placeholder="Nom de la ville" autofocus>
+                <button type="submit">ENVOYER</button>
+                <span class="msg"></span>
+            </form>
+        </div>
+    </section>
+    <section class="ajax-section">
+        <div class="container">
+            <ul class="cities"></ul>
+        </div>
+    </section>
+    <footer class="page-footer">
+        <div class="container">
+        </div>
+    </footer>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/D4C/service-worker.js').then(function (registration) {
+                console.log('Service worker registration succeeded:', registration);
+            }, function (error) {
+                console.log('Service worker registration failed:', error);
+            });
+        } else {
+            console.log('Service workers are not supported.');
+        }
+    </script>
+    <ul>
+        <li>To a <a href="hello.jsp">JSP page</a>.</li>
+        <li>To a <a href="hello">servlet</a>.</li>
+    </ul>
 </body>
 </html>
